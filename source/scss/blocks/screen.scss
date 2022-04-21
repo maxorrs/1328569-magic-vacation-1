@@ -336,6 +336,12 @@
   }
 }
 
+.screen.screen--game.active {
+  .form__field {
+    width: 100%;
+  }
+}
+
 .screen--result {
   position: absolute;
   bottom: 0;
@@ -353,4 +359,11 @@
 
 .screen--rules {
   background-color: $c-dark;
+}
+
+.screen.screen--intro.active {
+  .intro__message {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
