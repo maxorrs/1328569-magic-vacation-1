@@ -8,6 +8,8 @@ export default () => {
   const setSlider = function () {
     if (((window.innerWidth / window.innerHeight) < 1) || window.innerWidth < 769) {
       storySlider = new Swiper(`.js-slider`, {
+        slideActiveClass: `slider__item--active`,
+        slideNextClass: `slider__item--next`,
         pagination: {
           el: `.swiper-pagination`,
           type: `bullets`
@@ -32,12 +34,14 @@ export default () => {
           }
         },
         observer: true,
-        observeParents: true
+        observeParents: true,
       });
     } else {
       storySlider = new Swiper(`.js-slider`, {
         slidesPerView: 2,
         slidesPerGroup: 2,
+        slideActiveClass: `slider__item--active`,
+        slideNextClass: `slider__item--next`,
         pagination: {
           el: `.swiper-pagination`,
           type: `fraction`
