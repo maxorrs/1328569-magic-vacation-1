@@ -45,10 +45,17 @@ export default class FullPageScroll {
     this.changePageDisplay();
   }
 
+  clearPageLoadedClass() {
+    if (document.body.classList.contains(`page--loadedAnimate`)) {
+      document.body.classList.remove(`page--loadedAnimate`);
+    }
+  }
+
   changePageDisplay() {
     this.changeVisibilityDisplay();
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
+    this.clearPageLoadedClass();
   }
 
   changeVisibilityDisplay() {
