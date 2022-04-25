@@ -67,8 +67,8 @@
   border-radius: 3rem;
   outline: none;
 
-  width: 85px;
-  transition: width 0.4s;
+  width: 0;
+  transition: width 1s cubic-bezier(0.17, 0.81, 0.26, 1);
 
   &:focus {
     border: 1px solid $c-purple;

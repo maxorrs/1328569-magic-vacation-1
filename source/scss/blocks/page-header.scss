@@ -36,6 +36,11 @@
   width: 10rem;
   color: $c-light;
 
+  transform: translateX(-1rem);
+  opacity: 0;
+
+  transition: transform 0.5s cubic-bezier(0.42, 0.13, 0.19, 1.09), opacity 0.5s ease;
+
   @media (min-width: $stop-scaling) {
     top: -5px;
     padding: 10px 0;
@@ -81,6 +86,10 @@
   background-color: $c-light;
   border-radius: 50%;
   z-index: 1;
+
+  opacity: 0;
+
+  transition: opacity 0.5s ease 0.5s;
 
   @media (max-width: $tablet) and (orientation: portrait) {
     display: block;
@@ -178,6 +187,10 @@
   line-height: 1.0418;
   color: $c-light;
 
+  opacity: 0;
+
+  transition: opacity 0.5s ease 0.5s;
+
   @media (min-width: $stop-scaling) {
     font-size: 12px;
   }
@@ -272,7 +285,7 @@
     &.active {
       &::after {
         display: block;
-        width: 100%;
+        width: 0;
       }
     }
 
@@ -296,6 +309,10 @@
 
 .page-header__social {
   margin-left: 4.8rem;
+
+  opacity: 0;
+  
+  transition: opacity 0.5s ease 0.7s;
 
   @media (min-width: $stop-scaling) {
     margin-left: 48px;
