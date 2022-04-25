@@ -5,6 +5,7 @@ export default class FullPageScroll {
     this.THROTTLE_TIMEOUT = 1000;
     this.DELAY_BETWEEN_SCREEN_SWITCHING = 700;
     this.DELAY_BETWEEN_SCREEN_SWITCHING_ACTIVE_CLASS = this.DELAY_BETWEEN_SCREEN_SWITCHING + 100;
+    this.DELAY_ACTIVE_CLASS = 100;
     this.scrollFlag = true;
     this.timeout = null;
 
@@ -119,7 +120,7 @@ export default class FullPageScroll {
 
     this.addingActivateStylesScreenTimeoutId = setTimeout(() => {
       this.screenElements[this.activeScreen].classList.add(`active`);
-    }, isDelayBetweenScreenSwitching ? this.DELAY_BETWEEN_SCREEN_SWITCHING_ACTIVE_CLASS : 0);
+    }, isDelayBetweenScreenSwitching ? this.DELAY_BETWEEN_SCREEN_SWITCHING_ACTIVE_CLASS : this.DELAY_ACTIVE_CLASS);
   }
 
   changeActiveMenuItem() {
