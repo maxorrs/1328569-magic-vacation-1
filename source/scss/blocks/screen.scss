@@ -371,6 +371,26 @@
   background-color: $c-dark;
 }
 
+.screen--rules.active {
+  .rules__item {
+    p {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    &::before {
+      transform: scale(1);
+      color: #ffffff;
+    }
+  }
+
+  .rules__link {
+    font-size: 2.4rem;
+    color: $c-dark;
+    opacity: 1;
+  }
+}
+
 .screen.screen--intro.active {
   .intro__message {
     transform: translateY(0);
