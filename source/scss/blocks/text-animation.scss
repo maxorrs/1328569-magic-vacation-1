@@ -3,14 +3,14 @@
 }
 
 .text-animation__word {
-  // letter-spacing: -0.05em;
+  letter-spacing: -0.05em;
   overflow: hidden;
   display: inline-block;
 }
 
 .text-animation__word>span {
   display: inline-block;
-  line-height: 1;
+  line-height: 1.2;
   min-width: 0.25em;
   transform: translate3d(0, 1.3em, 0);
 }
