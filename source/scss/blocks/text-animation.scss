@@ -1,0 +1,16 @@
+.text-animation.text-animation--active .text-animation__word>span {
+  transform: translate3d(0, 0, 0);
+}
+
+.text-animation__word {
+  // letter-spacing: -0.05em;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.text-animation__word>span {
+  display: inline-block;
+  line-height: 1;
+  min-width: 0.25em;
+  transform: translate3d(0, 1.3em, 0);
+}

@@ -1,4 +1,5 @@
 import throttle from 'lodash/throttle';
+import AnimateText from '../utils/animate-text';
 
 export default class FullPageScroll {
   constructor() {
@@ -16,19 +17,38 @@ export default class FullPageScroll {
     this.prevScreen = 0;
 
     this.onScrollHandler = this.onScroll.bind(this);
-    this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+    this.onUrlHashChangedHandler = this.onUrlHashChanged.bind(this);
 
     this.backgroundScreenAppearingTimeoutId = null;
     this.resetHidingStylesScreensTimeoutId = null;
     this.removingHidingStylesScreenTimeoutId = null;
     this.addingActivateStylesScreenTimeoutId = null;
+
+    this._titleAnimation = null;
+    this._dateCompetitionTitleAnimation = null;
+
+    this.screenTitleSelector = {
+      top: `.intro__title`,
+      story: `.slider__item-title`,
+      prizes: `.prizes__title`,
+      rules: `.rules__title`,
+      game: `.game__title`,
+    };
   }
 
   init() {
     document.addEventListener(`wheel`, throttle(this.onScrollHandler, this.THROTTLE_TIMEOUT, {trailing: true}));
-    window.addEventListener(`popstate`, this.onUrlHashChengedHandler);
+    window.addEventListener(`popstate`, this.onUrlHashChangedHandler);
 
     this.onUrlHashChanged();
+  }
+
+  getScreenIndex(screenSelector) {
+    return Array.from(this.screenElements).findIndex((screenElement) => document.querySelector(screenSelector) === screenElement);
+  }
+
+  getIsFirstLoading() {
+    return this.activeScreen === 0 && this.prevScreen === 0;
   }
 
   onScroll(evt) {
@@ -72,16 +92,44 @@ export default class FullPageScroll {
     }
   }
 
+  updateTitlesAnimations() {
+    const {id: activeScreenId} = this.screenElements[this.activeScreen];
+    const activeScreenTitleSelector = this.screenTitleSelector[activeScreenId];
+    const isFirstLoading = this.getIsFirstLoading();
+    const isInitialScreen = this.activeScreen === 0;
+    const titleAnimationDelay = isFirstLoading && isInitialScreen ? 1000 : 0;
+
+    if (this._titleAnimation) {
+      this._titleAnimation.destroyAnimation();
+    }
+
+    if (this._dateCompetitionTitleAnimation) {
+      this._dateCompetitionTitleAnimation.destroyAnimation();
+      this._dateCompetitionTitleAnimation = null;
+    }
+
+    this._titleAnimation = new AnimateText({
+      delay: titleAnimationDelay,
+      elementSelector: activeScreenTitleSelector
+    });
+
+    if (this.activeScreen === 0) {
+      const dateCompetitionAnimationDelay = isFirstLoading ? 1700 : 0;
+      this._dateCompetitionTitleAnimation = new AnimateText({
+        elementSelector: `.intro__date`,
+        delay: dateCompetitionAnimationDelay,
+        isSaveSpaces: true,
+      });
+    }
+  }
+
   changePageDisplay() {
+    this.updateTitlesAnimations();
     this.changeVisibilityDisplay();
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
     this.clearPageLoadedAnimateClass();
     this.switchAnimateScreen();
-  }
-
-  getScreenIndex(screenSelector) {
-    return Array.from(this.screenElements).findIndex((screenElement) => document.querySelector(screenSelector) === screenElement);
   }
 
   enableScreenBackground() {
@@ -117,9 +165,15 @@ export default class FullPageScroll {
       this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
     }, isDelayBetweenScreenSwitching ? this.DELAY_BETWEEN_SCREEN_SWITCHING : 0);
 
-
     this.addingActivateStylesScreenTimeoutId = setTimeout(() => {
-      this.screenElements[this.activeScreen].classList.add(`active`);
+      const activeScreenElement = this.screenElements[this.activeScreen];
+      activeScreenElement.classList.add(`active`);
+      this._titleAnimation.runAnimation();
+
+      const isNeedToRunDateCompetitionTitleAnimation = this.activeScreen === 0 && this._dateCompetitionTitleAnimation;
+      if (isNeedToRunDateCompetitionTitleAnimation) {
+        this._dateCompetitionTitleAnimation.runAnimation();
+      }
     }, isDelayBetweenScreenSwitching ? this.DELAY_BETWEEN_SCREEN_SWITCHING_ACTIVE_CLASS : this.DELAY_ACTIVE_CLASS);
   }
 
