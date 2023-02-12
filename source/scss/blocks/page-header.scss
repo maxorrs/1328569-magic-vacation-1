@@ -39,7 +39,6 @@
   transform: translateX(-1rem);
   opacity: 0;
 
-  transition: transform 0.5s cubic-bezier(0.42, 0.13, 0.19, 1.09), opacity 0.5s ease;
 
   @media (min-width: $stop-scaling) {
     top: -5px;
@@ -89,7 +88,6 @@
 
   opacity: 0;
 
-  transition: opacity 0.5s ease 0.5s;
 
   @media (max-width: $tablet) and (orientation: portrait) {
     display: block;
@@ -189,7 +187,6 @@
 
   opacity: 0;
 
-  transition: opacity 0.5s ease 0.5s;
 
   @media (min-width: $stop-scaling) {
     font-size: 12px;
@@ -255,7 +252,6 @@
     color: inherit;
     padding: 0 0.5em 0.5em;
 
-    transition: color 0.35s;
 
     &::after {
       content: "";
@@ -267,7 +263,6 @@
       left: auto;
       right: 0;
 
-      transition: width 0.35s ease;
 
       @media (max-width: $tablet) and (orientation: portrait) {
         left: 0;
@@ -312,7 +307,6 @@
 
   opacity: 0;
   
-  transition: opacity 0.5s ease 0.7s;
 
   @media (min-width: $stop-scaling) {
     margin-left: 48px;
